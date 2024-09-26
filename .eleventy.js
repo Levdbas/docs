@@ -13,6 +13,8 @@ const redirectCollection = require('./lib/redirectCollection');
 module.exports = function (config) {
   // Copy folders and files.
   config.addPassthroughCopy('build');
+  config.setUseGitIgnore(false);
+
 
   // Filters.
   config.addFilter('manifest', manifestFilter);
@@ -82,7 +84,9 @@ module.exports = function (config) {
   });
 
   site.versions.forEach((version) => {
+
     config.addCollection(version.slug, function (collection) {
+
       return pageCollection(collection, version.glob);
     });
 
